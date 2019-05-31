@@ -6,12 +6,12 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Injectable, InjectionToken} from '@angular/core';
-import {Observable} from 'rxjs';
+import { Injectable, InjectionToken } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import {HttpHandler} from './backend';
-import {HttpRequest} from './request';
-import {HttpEvent} from './response';
+import { HttpHandler } from './backend';
+import { HttpRequest } from './request';
+import { HttpEvent } from './response';
 
 /**
  * Intercepts `HttpRequest` or `HttpResponse` and handles them.
@@ -48,7 +48,10 @@ export interface HttpInterceptor {
    * * **next**: The next interceptor in the chain, or the backend if no interceptors in the chain.
    *
    */
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>;
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>>;
 }
 
 /**
@@ -57,7 +60,10 @@ export interface HttpInterceptor {
  *
  */
 export class HttpInterceptorHandler implements HttpHandler {
-  constructor(private next: HttpHandler, private interceptor: HttpInterceptor) {}
+  constructor(
+    private next: HttpHandler,
+    private interceptor: HttpInterceptor
+  ) {}
 
   handle(req: HttpRequest<any>): Observable<HttpEvent<any>> {
     return this.interceptor.intercept(req, this.next);
@@ -70,11 +76,17 @@ export class HttpInterceptorHandler implements HttpHandler {
  *
  * @publicApi
  */
-export const HTTP_INTERCEPTORS = new InjectionToken<HttpInterceptor[]>('HTTP_INTERCEPTORS');
+export const HTTP_INTERCEPTORS = new InjectionToken<HttpInterceptor[]>(
+  'HTTP_INTERCEPTORS'
+);
 
 @Injectable()
 export class NoopInterceptor implements HttpInterceptor {
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
     return next.handle(req);
   }
 }
+

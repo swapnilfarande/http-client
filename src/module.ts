@@ -6,17 +6,37 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Injectable, Injector, ModuleWithProviders, NgModule} from '@angular/core';
-import {Observable} from 'rxjs';
+import {
+  Injectable,
+  Injector,
+  ModuleWithProviders,
+  NgModule
+} from '@angular/core';
+import { Observable } from 'rxjs';
 
-import {HttpBackend, HttpHandler} from './backend';
-import {HttpClient} from './client';
-import {HTTP_INTERCEPTORS, HttpInterceptor, HttpInterceptorHandler, NoopInterceptor} from './interceptor';
-import {JsonpCallbackContext, JsonpClientBackend, JsonpInterceptor} from './jsonp';
-import {HttpRequest} from './request';
-import {HttpEvent} from './response';
-import {BrowserXhr, HttpXhrBackend, XhrFactory} from './xhr';
-import {HttpXsrfCookieExtractor, HttpXsrfInterceptor, HttpXsrfTokenExtractor, XSRF_COOKIE_NAME, XSRF_HEADER_NAME} from './xsrf';
+import { HttpBackend, HttpHandler } from './backend';
+import { HttpClient } from './client';
+import {
+  HTTP_INTERCEPTORS,
+  HttpInterceptor,
+  HttpInterceptorHandler,
+  NoopInterceptor
+} from './interceptor';
+import {
+  JsonpCallbackContext,
+  JsonpClientBackend,
+  JsonpInterceptor
+} from './jsonp';
+import { HttpRequest } from './request';
+import { HttpEvent } from './response';
+import { BrowserXhr, HttpXhrBackend, XhrFactory } from './xhr';
+import {
+  HttpXsrfCookieExtractor,
+  HttpXsrfInterceptor,
+  HttpXsrfTokenExtractor,
+  XSRF_COOKIE_NAME,
+  XSRF_HEADER_NAME
+} from './xsrf';
 
 /**
  * An injectable `HttpHandler` that applies multiple interceptors
@@ -29,7 +49,7 @@ import {HttpXsrfCookieExtractor, HttpXsrfInterceptor, HttpXsrfTokenExtractor, XS
  */
 @Injectable()
 export class HttpInterceptingHandler implements HttpHandler {
-  private chain: HttpHandler|null = null;
+  private chain: HttpHandler | null = null;
 
   constructor(private backend: HttpBackend, private injector: Injector) {}
 
@@ -37,7 +57,9 @@ export class HttpInterceptingHandler implements HttpHandler {
     if (this.chain === null) {
       const interceptors = this.injector.get(HTTP_INTERCEPTORS, []);
       this.chain = interceptors.reduceRight(
-          (next, interceptor) => new HttpInterceptorHandler(next, interceptor), this.backend);
+        (next, interceptor) => new HttpInterceptorHandler(next, interceptor),
+        this.backend
+      );
     }
     return this.chain.handle(req);
   }
@@ -52,12 +74,16 @@ export class HttpInterceptingHandler implements HttpHandler {
  *
  */
 export function interceptingHandler(
-    backend: HttpBackend, interceptors: HttpInterceptor[] | null = []): HttpHandler {
+  backend: HttpBackend,
+  interceptors: HttpInterceptor[] | null = []
+): HttpHandler {
   if (!interceptors) {
     return backend;
   }
   return interceptors.reduceRight(
-      (next, interceptor) => new HttpInterceptorHandler(next, interceptor), backend);
+    (next, interceptor) => new HttpInterceptorHandler(next, interceptor),
+    backend
+  );
 }
 
 /**
@@ -90,11 +116,15 @@ export function jsonpCallbackContext(): Object {
 @NgModule({
   providers: [
     HttpXsrfInterceptor,
-    {provide: HTTP_INTERCEPTORS, useExisting: HttpXsrfInterceptor, multi: true},
-    {provide: HttpXsrfTokenExtractor, useClass: HttpXsrfCookieExtractor},
-    {provide: XSRF_COOKIE_NAME, useValue: 'XSRF-TOKEN'},
-    {provide: XSRF_HEADER_NAME, useValue: 'X-XSRF-TOKEN'},
-  ],
+    {
+      provide: HTTP_INTERCEPTORS,
+      useExisting: HttpXsrfInterceptor,
+      multi: true
+    },
+    { provide: HttpXsrfTokenExtractor, useClass: HttpXsrfCookieExtractor },
+    { provide: XSRF_COOKIE_NAME, useValue: 'XSRF-TOKEN' },
+    { provide: XSRF_HEADER_NAME, useValue: 'X-XSRF-TOKEN' }
+  ]
 })
 export class HttpClientXsrfModule {
   /**
@@ -103,9 +133,7 @@ export class HttpClientXsrfModule {
   static disable(): ModuleWithProviders<HttpClientXsrfModule> {
     return {
       ngModule: HttpClientXsrfModule,
-      providers: [
-        {provide: HttpXsrfInterceptor, useClass: NoopInterceptor},
-      ],
+      providers: [{ provide: HttpXsrfInterceptor, useClass: NoopInterceptor }]
     };
   }
 
@@ -117,16 +145,22 @@ export class HttpClientXsrfModule {
    * - Header name default is `X-XSRF-TOKEN`.
    *
    */
-  static withOptions(options: {
-    cookieName?: string,
-    headerName?: string,
-  } = {}): ModuleWithProviders<HttpClientXsrfModule> {
+  static withOptions(
+    options: {
+      cookieName?: string;
+      headerName?: string;
+    } = {}
+  ): ModuleWithProviders<HttpClientXsrfModule> {
     return {
       ngModule: HttpClientXsrfModule,
       providers: [
-        options.cookieName ? {provide: XSRF_COOKIE_NAME, useValue: options.cookieName} : [],
-        options.headerName ? {provide: XSRF_HEADER_NAME, useValue: options.headerName} : [],
-      ],
+        options.cookieName
+          ? { provide: XSRF_COOKIE_NAME, useValue: options.cookieName }
+          : [],
+        options.headerName
+          ? { provide: XSRF_HEADER_NAME, useValue: options.headerName }
+          : []
+      ]
     };
   }
 }
@@ -147,8 +181,8 @@ export class HttpClientXsrfModule {
   imports: [
     HttpClientXsrfModule.withOptions({
       cookieName: 'XSRF-TOKEN',
-      headerName: 'X-XSRF-TOKEN',
-    }),
+      headerName: 'X-XSRF-TOKEN'
+    })
   ],
   /**
    * Configures the [dependency injector](guide/glossary#injector) where it is imported
@@ -156,15 +190,14 @@ export class HttpClientXsrfModule {
    */
   providers: [
     HttpClient,
-    {provide: HttpHandler, useClass: HttpInterceptingHandler},
+    { provide: HttpHandler, useClass: HttpInterceptingHandler },
     HttpXhrBackend,
-    {provide: HttpBackend, useExisting: HttpXhrBackend},
+    { provide: HttpBackend, useExisting: HttpXhrBackend },
     BrowserXhr,
-    {provide: XhrFactory, useExisting: BrowserXhr},
-  ],
+    { provide: XhrFactory, useExisting: BrowserXhr }
+  ]
 })
-export class HttpClientModule {
-}
+export class HttpClientModule {}
 
 /**
  * Configures the [dependency injector](guide/glossary#injector) for `HttpClient`
@@ -180,9 +213,9 @@ export class HttpClientModule {
 @NgModule({
   providers: [
     JsonpClientBackend,
-    {provide: JsonpCallbackContext, useFactory: jsonpCallbackContext},
-    {provide: HTTP_INTERCEPTORS, useClass: JsonpInterceptor, multi: true},
-  ],
+    { provide: JsonpCallbackContext, useFactory: jsonpCallbackContext },
+    { provide: HTTP_INTERCEPTORS, useClass: JsonpInterceptor, multi: true }
+  ]
 })
-export class HttpClientJsonpModule {
-}
+export class HttpClientJsonpModule {}
+
