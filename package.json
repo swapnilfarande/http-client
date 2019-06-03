@@ -1,12 +1,39 @@
 {
-  "name": "@angular/common/http",
+  "name": "ts-http-client",
   "typings": "./http.d.ts",
-  "main": "../bundles/common-http.umd.js",
+  "main": "./public_api.ts",
   "module": "../fesm5/http.js",
   "es2015": "../fesm2015/http.js",
   "esm5": "../esm5/http/http.js",
   "esm2015": "../esm2015/http/http.js",
   "fesm5": "../fesm5/http.js",
   "fesm2015": "../fesm2015/http.js",
-  "sideEffects": false
+  "sideEffects": false,
+  "version": "0.0.1",
+  "description": "Typescript based http client for javascript applications",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "tslint": "^5.17.0",
+    "rxjs": "^6.5.2",
+    "typescript-tslint-plugin": "^0.4.0",
+    "typescript": "^3.5.1"
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swapnilfarande/http-client.git"
+  },
+  "keywords": [
+    "typescript",
+    "http",
+    "client"
+  ],
+  "author": "Swapnil Farande",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/swapnilfarande/http-client/issues"
+  },
+  "homepage": "https://github.com/swapnilfarande/http-client#readme"
 }

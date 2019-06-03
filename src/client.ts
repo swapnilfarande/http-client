@@ -5,8 +5,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-
-import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { concatMap, filter, map } from 'rxjs/operators';
 
@@ -15,6 +13,7 @@ import { HttpHeaders } from './headers';
 import { HttpParams, HttpParamsOptions } from './params';
 import { HttpRequest } from './request';
 import { HttpEvent, HttpResponse } from './response';
+import { HttpInterceptingHandler } from './module';
 
 /**
  * Constructs an instance of `HttpRequestOptions<T>` from a source `HttpMethodOptions` and
@@ -88,9 +87,11 @@ export type HttpObserve = 'body' | 'events' | 'response';
  *
  * @publicApi
  */
-@Injectable()
 export class HttpClient {
-  constructor(private handler: HttpHandler) {}
+  private handler: HttpHandler;
+  constructor() {
+    this.handler = new HttpInterceptingHandler();
+  }
 
   /**
    * Sends an `HTTPRequest` and returns a stream of `HTTPEvents`.
@@ -587,11 +588,11 @@ export class HttpClient {
     // The requested stream contains either the full response or the body. In either
     // case, the first step is to filter the event stream to extract a stream of
     // responses(s).
-    const res$: Observable<HttpResponse<any>> = <Observable<HttpResponse<any>>>(
+    const res$: Observable<HttpResponse<any>> = (
       events$.pipe(
         filter((event: HttpEvent<any>) => event instanceof HttpResponse)
       )
-    );
+    ) as Observable<HttpResponse<any>>;
 
     // Decide which stream to return.
     switch (options.observe || 'body') {
@@ -3190,4 +3191,3 @@ export class HttpClient {
     return this.request<any>('PUT', url, addBody(options, body));
   }
 }
-

@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import { HttpHeaders } from './headers';
+import { HttpHeaders } from "./headers";
 
 /**
  * Type enumeration for the different kinds of `HttpEvent`.
@@ -196,7 +196,7 @@ export abstract class HttpResponseBase {
       url?: string;
     },
     defaultStatus: number = 200,
-    defaultStatusText: string = 'OK'
+    defaultStatusText: string = "OK"
   ) {
     // If the hash has values passed, use them to initialize the response.
     // Otherwise use the default values.
@@ -339,7 +339,7 @@ export class HttpResponse<T> extends HttpResponseBase {
  * @publicApi
  */
 export class HttpErrorResponse extends HttpResponseBase implements Error {
-  readonly name = 'HttpErrorResponse';
+  readonly name = "HttpErrorResponse";
   readonly message: string;
   readonly error: any | null;
 
@@ -356,19 +356,18 @@ export class HttpErrorResponse extends HttpResponseBase implements Error {
     url?: string;
   }) {
     // Initialize with a default status of 0 / Unknown Error.
-    super(init, 0, 'Unknown Error');
+    super(init, 0, "Unknown Error");
 
     // If the response was successful, then this was a parse error. Otherwise, it was
     // a protocol-level failure of some sort. Either the request failed in transit
     // or the server returned an unsuccessful status code.
     if (this.status >= 200 && this.status < 300) {
       this.message = `Http failure during parsing for ${init.url ||
-        '(unknown url)'}`;
+        "(unknown url)"}`;
     } else {
       this.message = `Http failure response for ${init.url ||
-        '(unknown url)'}: ${init.status} ${init.statusText}`;
+        "(unknown url)"}: ${init.status} ${init.statusText}`;
     }
     this.error = init.error || null;
   }
 }
-

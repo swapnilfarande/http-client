@@ -39,4 +39,3 @@ export abstract class HttpHandler {
 export abstract class HttpBackend implements HttpHandler {
   abstract handle(req: HttpRequest<any>): Observable<HttpEvent<any>>;
 }
-

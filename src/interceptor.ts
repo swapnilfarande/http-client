@@ -6,12 +6,11 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import { Injectable, InjectionToken } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable } from "rxjs";
 
-import { HttpHandler } from './backend';
-import { HttpRequest } from './request';
-import { HttpEvent } from './response';
+import { HttpHandler } from "./backend";
+import { HttpRequest } from "./request";
+import { HttpEvent } from "./response";
 
 /**
  * Intercepts `HttpRequest` or `HttpResponse` and handles them.
@@ -75,12 +74,11 @@ export class HttpInterceptorHandler implements HttpHandler {
  * are registered.
  *
  * @publicApi
- */
-export const HTTP_INTERCEPTORS = new InjectionToken<HttpInterceptor[]>(
-  'HTTP_INTERCEPTORS'
-);
+//  */
+// export const HTTP_INTERCEPTORS = new InjectionToken<HttpInterceptor[]>(
+//   'HTTP_INTERCEPTORS'
+// );
 
-@Injectable()
 export class NoopInterceptor implements HttpInterceptor {
   intercept(
     req: HttpRequest<any>,
@@ -89,4 +87,3 @@ export class NoopInterceptor implements HttpInterceptor {
     return next.handle(req);
   }
 }
-
