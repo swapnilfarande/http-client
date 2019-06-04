@@ -1,3 +1,7 @@
+/*
+ * Public API Surface of ts-http-client
+ */
+
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -6,18 +10,18 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { HttpBackend, HttpHandler } from "./src/backend";
-export { HttpClient } from "./src/client";
-export { HttpHeaders } from "./src/headers";
+export { HttpBackend, HttpHandler } from './lib/backend';
+export { HttpClient } from './lib/client';
+export { HttpHeaders } from './lib/headers';
 export {
-   HttpInterceptingHandler as ɵHttpInterceptingHandler
-} from "./src/module";
+  HttpInterceptingHandler as ɵHttpInterceptingHandler
+} from './lib/module';
 export {
   HttpParameterCodec,
   HttpParams,
   HttpUrlEncodingCodec
-} from "./src/params";
-export { HttpRequest } from "./src/request";
+} from './lib/params';
+export { HttpRequest } from './lib/request';
 export {
   HttpDownloadProgressEvent,
   HttpErrorResponse,
@@ -29,6 +33,6 @@ export {
   HttpResponseBase,
   HttpSentEvent,
   HttpUserEvent
-} from "./src/response";
-export { HttpXhrBackend, XhrFactory } from "./src/xhr";
-export { HttpXsrfTokenExtractor } from "./src/xsrf";
+} from './lib/response';
+export { HttpXhrBackend, XhrFactory } from './lib/xhr';
+export { HttpXsrfTokenExtractor } from './lib/xsrf';

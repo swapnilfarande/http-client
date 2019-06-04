@@ -49,13 +49,13 @@ export class HttpInterceptingHandler implements HttpHandler {
   }
 
   handle(req: HttpRequest<any>): Observable<HttpEvent<any>> {
-    // if (this.chain === null) {
-    //   const interceptors = this.injector.get(HTTP_INTERCEPTORS, []);
-    //   this.chain = interceptors.reduceRight(
-    //     (next, interceptor) => new HttpInterceptorHandler(next, interceptor),
-    //     this.backend
-    //   );
-    // }
+    if (this.chain === null) {
+      const interceptors = []; // this.injector.get(HTTP_INTERCEPTORS, []);
+      this.chain = interceptors.reduceRight(
+        (next, interceptor) => new HttpInterceptorHandler(next, interceptor),
+        this.backend
+      );
+    }
     return this.chain.handle(req);
   }
 }
