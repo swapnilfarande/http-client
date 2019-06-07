@@ -1,4 +1,18 @@
 {
   "name": "ts-http-client",
-  "version": "0.0.4"
+  "version": "0.0.4",
+  "description": "HTTP client library for javascript projects",
+  "license": "MIT",
+  "author": {
+    "email": "swapnil.farande06@gmail.com",
+    "name": "Swapnil Farande",
+    "url": "https://github.com/swapnilfarande"
+  },
+  "keywords": [
+    "typescript",
+    "http",
+    "client"
+  ],
+  "repository": "github:swapnilfarande/http-client"
+
 }
