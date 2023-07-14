@@ -13,9 +13,7 @@
 export { HttpBackend, HttpHandler } from './lib/backend';
 export { HttpClient } from './lib/client';
 export { HttpHeaders } from './lib/headers';
-export {
-  HttpInterceptingHandler as ɵHttpInterceptingHandler
-} from './lib/module';
+export { HttpInterceptingHandler as ɵHttpInterceptingHandler } from './lib/module';
 export {
   HttpParameterCodec,
   HttpParams,

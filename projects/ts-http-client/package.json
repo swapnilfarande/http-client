@@ -1,6 +1,6 @@
 {
   "name": "ts-http-client",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "HTTP client library for javascript projects",
   "license": "MIT",
   "author": {
@@ -13,6 +13,8 @@
     "http",
     "client"
   ],
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
   "repository": "github:swapnilfarande/http-client"
-
 }

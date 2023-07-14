@@ -1,26 +1,22 @@
 {
-  "folders": [{
-    "path": "."
-  }],
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
 
   "extensions": {
     "recommendations": [
-      "coenraads.bracket-pair-colorizer",
+      "Angular.ng-template",
       "dbaeumer.vscode-eslint",
       "donjayamanne.githistory",
       "eamodio.gitlens",
       "esbenp.prettier-vscode",
       "HookyQR.beautify",
-      "ms-vscode.vscode-typescript-tslint-plugin",
-      "shinnn.stylelint",
       "SonarSource.sonarlint-vscode",
-      "sysoev.language-stylus",
       "wmaurer.change-case",
-      "flesler.url-encode"
-    ],
-    "unwantedRecommendations": [
-      "dbaeumer.jshint",
-      "eg2.tslint"
+      "flesler.url-encode",
+      "psioniq.psi-header"
     ]
   },
   "settings": {
@@ -36,27 +32,15 @@
     "editor.formatOnSave": true,
     "[typescript]": {
       "editor.rulers": [140],
-      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "[javascript]": {
-      "editor.defaultFormatter": "HookyQR.beautify",
-      "editor.formatOnSave": true
-    },
-    "[html]": {
-      "editor.defaultFormatter": "HookyQR.beautify"
-    },
+
     "editor.rulers": [120],
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "workbench.editor.highlightModifiedTabs": true,
     "eslint.enable": true,
-    "tslint.enable": false,
-    "jshint.enable": false,
-    "prettier.tslintIntegration": true,
-    "hg.enabled": true,
-
-    "search.usePCRE2": true,
     "editor.codeActionsOnSave": {
       "source.fixAll": true
     }

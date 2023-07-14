@@ -10,11 +10,19 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/ts-http-client/tsconfig.lib.json",
             "project": "projects/ts-http-client/ng-package.json"
-          }
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ts-http-client/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ts-http-client/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -23,20 +31,8 @@
             "tsConfig": "projects/ts-http-client/tsconfig.spec.json",
             "karmaConfig": "projects/ts-http-client/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/ts-http-client/tsconfig.lib.json",
-              "projects/ts-http-client/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
         }
       }
-    }},
-  "defaultProject": "ts-http-client"
+    }
+  }
 }

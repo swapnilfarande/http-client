@@ -6,23 +6,23 @@
 //  * found in the LICENSE file at https://angular.io/license
 //  */
 
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
-import { HttpBackend, HttpHandler } from "./backend";
+import { HttpBackend, HttpHandler } from './backend';
 import {
   // HTTP_INTERCEPTORS,
   // HttpInterceptor,
-  HttpInterceptorHandler
+  HttpInterceptorHandler,
   // NoopInterceptor
-} from "./interceptor";
+} from './interceptor';
 // import {
 //   JsonpCallbackContext,
 //   JsonpClientBackend,
 //   JsonpInterceptor
 // } from './jsonp';
-import { HttpRequest } from "./request";
-import { HttpEvent } from "./response";
-import { BrowserXhr, HttpXhrBackend, XhrFactory } from "./xhr";
+import { HttpRequest } from './request';
+import { HttpEvent } from './response';
+import { BrowserXhr, HttpXhrBackend, XhrFactory } from './xhr';
 // import {
 //   HttpXsrfCookieExtractor,
 //   HttpXsrfInterceptor,
@@ -50,13 +50,13 @@ export class HttpInterceptingHandler implements HttpHandler {
 
   handle(req: HttpRequest<any>): Observable<HttpEvent<any>> {
     if (this.chain === null) {
-      const interceptors = []; // this.injector.get(HTTP_INTERCEPTORS, []);
+      const interceptors: any[] = []; // this.injector.get(HTTP_INTERCEPTORS, []);
       this.chain = interceptors.reduceRight(
         (next, interceptor) => new HttpInterceptorHandler(next, interceptor),
         this.backend
       );
     }
-    return this.chain.handle(req);
+    return this.chain!.handle(req);
   }
 }
 
